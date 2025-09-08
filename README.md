@@ -18,52 +18,34 @@ A modern web application that provides instant weather updates and local news he
 
 ## Demo Mode
 
-The application currently runs in demo mode with realistic mock data. This allows you to test all functionality immediately without requiring API keys.
+The application is now configured to use real APIs but requires API keys to function.
 
-## Setting Up Real APIs (Optional)
+## Setting Up API Keys (Required)
 
-To use real data instead of mock data, you'll need API keys from:
+To use the application, you'll need API keys from both services:
 
 ### Weather Data (OpenWeatherMap)
 1. Sign up at [OpenWeatherMap](https://openweathermap.org/api)
 2. Get your free API key
-3. Replace the `fetchWeatherData` method in `main.js` with:
-
-```javascript
-async fetchWeatherData(cityName) {
-  const API_KEY = 'your_openweather_api_key';
-  const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${API_KEY}&units=metric`
-  );
-  
-  if (!response.ok) {
-    throw new Error('City not found. Please check the spelling and try again.');
-  }
-  
-  return await response.json();
-}
-```
+3. In `main.js`, replace `'YOUR_OPENWEATHER_API_KEY'` with your actual API key
 
 ### News Data (NewsAPI)
 1. Sign up at [NewsAPI](https://newsapi.org/)
 2. Get your free API key
-3. Replace the `fetchNewsData` method in `main.js` with:
+3. In `main.js`, replace `'YOUR_NEWSAPI_KEY'` with your actual API key
 
-```javascript
-async fetchNewsData(cityName) {
-  const API_KEY = 'your_newsapi_key';
-  const response = await fetch(
-    `https://newsapi.org/v2/everything?q=${cityName}&sortBy=publishedAt&pageSize=3&apiKey=${API_KEY}`
-  );
-  
-  if (!response.ok) {
-    throw new Error('Unable to fetch news data.');
-  }
-  
-  return await response.json();
-}
-```
+### Important Notes:
+- **OpenWeatherMap**: Free tier allows 1,000 calls/day
+- **NewsAPI**: Free tier allows 100 requests/day
+- Both APIs require HTTPS in production
+- Keep your API keys secure and never commit them to public repositories
 
+### API Key Setup:
+1. Open `main.js`
+2. Find line with `const API_KEY = 'YOUR_OPENWEATHER_API_KEY';`
+3. Replace `'YOUR_OPENWEATHER_API_KEY'` with your actual OpenWeatherMap API key
+4. Find line with `const API_KEY = 'YOUR_NEWSAPI_KEY';`
+5. Replace `'YOUR_NEWSAPI_KEY'` with your actual NewsAPI key
 ## Technologies Used
 
 - **HTML5**: Semantic markup structure

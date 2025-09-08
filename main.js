@@ -66,73 +66,59 @@ class WeatherNewsApp {
   }
 
   async fetchWeatherData(cityName) {
-    // Mock weather data for demonstration
-    // In production, replace with actual API call to OpenWeatherMap
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        // Simulate API response
-        const mockWeatherData = {
-          name: cityName,
-          weather: [
-            {
-              main: this.getRandomWeather(),
-              description: this.getRandomWeatherDescription(),
-              icon: '01d'
-            }
-          ],
-          main: {
-            temp: Math.floor(Math.random() * 30) + 5,
-            feels_like: Math.floor(Math.random() * 30) + 5,
-            humidity: Math.floor(Math.random() * 40) + 40
-          },
-          wind: {
-            speed: Math.floor(Math.random() * 20) + 5
-          }
-        };
-
-        // Simulate city not found error occasionally
-        if (cityName.toLowerCase() === 'nowhere') {
-          reject(new Error('City not found. Please check the spelling and try again.'));
+    // Replace 'YOUR_OPENWEATHER_API_KEY' with your actual API key
+    const API_KEY = 'YOUR_OPENWEATHER_API_KEY';
+    const API_URL = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(cityName)}&appid=${API_KEY}&units=metric`;
+    
+    try {
+      const response = await fetch(API_URL);
+      
+      if (!response.ok) {
+        if (response.status === 404) {
+          throw new Error('City not found. Please check the spelling and try again.');
+        } else if (response.status === 401) {
+          throw new Error('Invalid API key. Please check your OpenWeatherMap API key.');
         } else {
-          resolve(mockWeatherData);
+          throw new Error('Unable to fetch weather data. Please try again later.');
         }
-      }, 1000);
-    });
+      }
+      
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      if (error.message.includes('fetch')) {
+        throw new Error('Network error. Please check your internet connection.');
+      }
+      throw error;
+    }
   }
 
   async fetchNewsData(cityName) {
-    // Mock news data for demonstration
-    // In production, replace with actual API call to NewsAPI
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const mockNewsData = {
-          articles: [
-            {
-              title: `Local Development Projects Transform ${cityName} Downtown Area`,
-              description: `New infrastructure and business developments are bringing positive changes to the heart of ${cityName}, creating jobs and improving quality of life for residents.`,
-              url: '#',
-              source: { name: 'Local News Network' },
-              publishedAt: new Date().toISOString()
-            },
-            {
-              title: `${cityName} Weather Alert: Seasonal Changes Expected This Week`,
-              description: `Meteorologists predict significant weather patterns affecting ${cityName} and surrounding areas. Residents advised to prepare for changing conditions.`,
-              url: '#',
-              source: { name: 'Weather Central' },
-              publishedAt: new Date(Date.now() - 3600000).toISOString()
-            },
-            {
-              title: `Community Events Bring ${cityName} Residents Together`,
-              description: `Local organizations announce upcoming festivals and community gatherings designed to strengthen neighborhood bonds and celebrate local culture.`,
-              url: '#',
-              source: { name: 'Community Herald' },
-              publishedAt: new Date(Date.now() - 7200000).toISOString()
-            }
-          ]
-        };
-        resolve(mockNewsData);
-      }, 1200);
-    });
+    // Replace 'YOUR_NEWSAPI_KEY' with your actual API key
+    const API_KEY = 'YOUR_NEWSAPI_KEY';
+    const API_URL = `https://newsapi.org/v2/everything?q=${encodeURIComponent(cityName)}&sortBy=publishedAt&pageSize=3&language=en&apiKey=${API_KEY}`;
+    
+    try {
+      const response = await fetch(API_URL);
+      
+      if (!response.ok) {
+        if (response.status === 401) {
+          throw new Error('Invalid NewsAPI key. Please check your API key.');
+        } else if (response.status === 429) {
+          throw new Error('News API rate limit exceeded. Please try again later.');
+        } else {
+          throw new Error('Unable to fetch news data. Please try again later.');
+        }
+      }
+      
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      if (error.message.includes('fetch')) {
+        throw new Error('Network error. Please check your internet connection.');
+      }
+      throw error;
+    }
   }
 
   displayWeather(data) {
@@ -141,10 +127,10 @@ class WeatherNewsApp {
     this.temperature.textContent = `${Math.round(data.main.temp)}°C`;
     this.feelsLike.textContent = `${Math.round(data.main.feels_like)}°C`;
     this.humidity.textContent = `${data.main.humidity}%`;
-    this.windSpeed.textContent = `${data.wind.speed} km/h`;
+    this.windSpeed.textContent = `${Math.round(data.wind.speed * 3.6)} km/h`;
     
     // Set weather icon based on weather condition
-    this.updateWeatherIcon(data.weather[0].main);
+    this.updateWeatherIcon(data.weather[0].main, data.weather[0].icon);
   }
 
   displayNews(data) {
@@ -170,7 +156,7 @@ class WeatherNewsApp {
       
       articleElement.innerHTML = `
         <h3><a href="${article.url}" target="_blank" rel="noopener noreferrer">${article.title}</a></h3>
-        <p>${article.description}</p>
+        <p>${article.description || 'No description available.'}</p>
         <div class="news-meta">
           <span class="news-source">${article.source.name}</span>
           <span class="news-date">${publishedDate}</span>
@@ -181,7 +167,7 @@ class WeatherNewsApp {
     });
   }
 
-  updateWeatherIcon(weatherMain) {
+  updateWeatherIcon(weatherMain, iconCode) {
     const iconMap = {
       'Clear': 'fas fa-sun',
       'Clouds': 'fas fa-cloud',
@@ -193,20 +179,29 @@ class WeatherNewsApp {
       'Fog': 'fas fa-smog'
     };
     
-    this.weatherIcon.className = iconMap[weatherMain] || 'fas fa-sun';
-  }
-
-  getRandomWeather() {
-    const conditions = ['Clear', 'Clouds', 'Rain', 'Drizzle', 'Snow', 'Mist'];
-    return conditions[Math.floor(Math.random() * conditions.length)];
-  }
-
-  getRandomWeatherDescription() {
-    const descriptions = [
-      'clear sky', 'few clouds', 'scattered clouds', 'broken clouds',
-      'light rain', 'moderate rain', 'light snow', 'mist'
-    ];
-    return descriptions[Math.floor(Math.random() * descriptions.length)];
+    // Use more specific icons based on OpenWeatherMap icon codes
+    const specificIconMap = {
+      '01d': 'fas fa-sun',           // clear sky day
+      '01n': 'fas fa-moon',          // clear sky night
+      '02d': 'fas fa-cloud-sun',     // few clouds day
+      '02n': 'fas fa-cloud-moon',    // few clouds night
+      '03d': 'fas fa-cloud',         // scattered clouds
+      '03n': 'fas fa-cloud',
+      '04d': 'fas fa-cloud',         // broken clouds
+      '04n': 'fas fa-cloud',
+      '09d': 'fas fa-cloud-rain',    // shower rain
+      '09n': 'fas fa-cloud-rain',
+      '10d': 'fas fa-cloud-sun-rain', // rain day
+      '10n': 'fas fa-cloud-moon-rain', // rain night
+      '11d': 'fas fa-bolt',          // thunderstorm
+      '11n': 'fas fa-bolt',
+      '13d': 'fas fa-snowflake',     // snow
+      '13n': 'fas fa-snowflake',
+      '50d': 'fas fa-smog',          // mist
+      '50n': 'fas fa-smog'
+    };
+    
+    this.weatherIcon.className = specificIconMap[iconCode] || iconMap[weatherMain] || 'fas fa-sun';
   }
 
   showError(message) {
