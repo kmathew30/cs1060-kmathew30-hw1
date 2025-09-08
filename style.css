@@ -497,7 +497,7 @@ body::before {
 }
 
 .info-card p {
-  color: #4a5568;
+  color: #2d3748;
   line-height: 1.7;
   margin-bottom: 30px;
   font-size: 1.1rem;
@@ -508,7 +508,7 @@ body::before {
 }
 
 .tech-stack h4, .api-info h4 {
-  color: #2d3748;
+  color: #1a202c;
   font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: 15px;
@@ -569,13 +569,13 @@ body::before {
 }
 
 .api-source strong {
-  color: #2d3748;
+  color: #1a202c;
   font-weight: 600;
   font-size: 1rem;
 }
 
 .api-source span {
-  color: #718096;
+  color: #4a5568;
   font-size: 0.9rem;
 }
 
