@@ -56,15 +56,20 @@ class WeatherNewsApp {
     this.showLoading();
 
     try {
-      // Fetch weather and news data
-      const [weatherData, newsData] = await Promise.all([
-        this.fetchWeatherData(cityName),
-        this.fetchNewsData(cityName)
-      ]);
-
-      // Display results
+      // Fetch weather data first (this should always work)
+      const weatherData = await this.fetchWeatherData(cityName);
       this.displayWeather(weatherData);
-      this.displayNews(newsData);
+      
+      // Try to fetch news data, but don't fail if it doesn't work
+      try {
+        const newsData = await this.fetchNewsData(cityName);
+        this.displayNews(newsData);
+      } catch (newsError) {
+        console.warn('News API failed:', newsError.message);
+        // Display a friendly message in the news section
+        this.displayNewsError(newsError.message);
+      }
+      
       this.showResults();
 
     } catch (error) {
@@ -115,25 +120,41 @@ class WeatherNewsApp {
     const NEWS_API_KEY = '56dab31f519b40cab8a52cacb0614d5c';
     const API_URL = `https://newsapi.org/v2/everything?q=${encodeURIComponent(cityName)}&sortBy=publishedAt&pageSize=3&language=en&apiKey=${NEWS_API_KEY}`;
     
+    console.log('News API URL:', API_URL); // Debug log
+    
     try {
       const response = await fetch(API_URL);
+      console.log('News API Response Status:', response.status); // Debug log
       
       if (!response.ok) {
+        const errorText = await response.text();
+        console.log('News API Error Response:', errorText); // Debug log
+        
         if (response.status === 401) {
-          throw new Error('Invalid NewsAPI key. Please check your API key.');
+          throw new Error(`Invalid NewsAPI key. Please check your API key. Response: ${errorText}`);
         } else if (response.status === 429) {
           throw new Error('News API rate limit exceeded. Please try again later.');
         } else {
-          throw new Error('Unable to fetch news data. Please try again later.');
+          throw new Error(`Unable to fetch news data. Status: ${response.status}. Response: ${errorText}`);
         }
       }
       
       const data = await response.json();
+      console.log('News API Success:', data); // Debug log
       return data;
     } catch (error) {
-      if (error.message.includes('fetch')) {
-        throw new Error('Network error. Please check your internet connection.');
+      console.error('News API Error:', error); // Debug log
+      
+      // Check if it's a CORS error
+      if (error.name === 'TypeError' && error.message.includes('fetch')) {
+        throw new Error('News API blocked by browser security (CORS). This is normal - news data cannot be loaded directly from browsers.');
       }
+      
+      // Check for other network errors
+      if (error.message.includes('NetworkError') || error.message.includes('Failed to fetch')) {
+        throw new Error('Unable to connect to news service. This may be due to browser security restrictions (CORS).');
+      }
+      
       throw error;
     }
   }
@@ -184,6 +205,17 @@ class WeatherNewsApp {
     });
   }
 
+  displayNewsError(errorMessage) {
+    this.newsContainer.innerHTML = `
+      <div class="news-article">
+        <h3>News Currently Unavailable</h3>
+        <p>Unable to load news headlines due to browser security restrictions. News APIs typically require server-side implementation to work properly.</p>
+        <div class="news-meta">
+          <span class="news-source">Technical Info: ${errorMessage}</span>
+        </div>
+      </div>
+    `;
+  }
   updateWeatherIcon(weatherMain, iconCode) {
     const iconMap = {
       'Clear': 'fas fa-sun',
