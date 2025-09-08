@@ -116,9 +116,8 @@ class WeatherNewsApp {
   }
 
   async fetchNewsData(cityName) {
-    // Add your NewsAPI key here
-    const NEWS_API_KEY = '56dab31f519b40cab8a52cacb0614d5c';
-    const API_URL = `https://newsapi.org/v2/everything?q=${encodeURIComponent(cityName)}&sortBy=publishedAt&pageSize=3&language=en&apiKey=${NEWS_API_KEY}`;
+    // Use local proxy server to avoid CORS issues
+    const API_URL = `http://localhost:3001/api/news?q=${encodeURIComponent(cityName)}`;
     
     console.log('News API URL:', API_URL); // Debug log
     
