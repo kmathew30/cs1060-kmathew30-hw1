@@ -70,22 +70,30 @@ class WeatherNewsApp {
     const WEATHER_API_KEY = 'd424c92b6665591d149f1493bf8d4ecd';
     const API_URL = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(cityName)}&appid=${WEATHER_API_KEY}&units=metric`;
     
+    console.log('Weather API URL:', API_URL); // Debug log
+    
     try {
       const response = await fetch(API_URL);
+      console.log('Weather API Response Status:', response.status); // Debug log
       
       if (!response.ok) {
+        const errorText = await response.text();
+        console.log('Weather API Error Response:', errorText); // Debug log
+        
         if (response.status === 404) {
           throw new Error('City not found. Please check the spelling and try again.');
         } else if (response.status === 401) {
-          throw new Error('Invalid API key. Please check your OpenWeatherMap API key.');
+          throw new Error(`Invalid API key. Please check your OpenWeatherMap API key. Response: ${errorText}`);
         } else {
-          throw new Error('Unable to fetch weather data. Please try again later.');
+          throw new Error(`Unable to fetch weather data. Status: ${response.status}. Response: ${errorText}`);
         }
       }
       
       const data = await response.json();
+      console.log('Weather API Success:', data); // Debug log
       return data;
     } catch (error) {
+      console.error('Weather API Error:', error); // Debug log
       if (error.message.includes('fetch')) {
         throw new Error('Network error. Please check your internet connection.');
       }
