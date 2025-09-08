@@ -29,6 +29,15 @@ class WeatherNewsApp {
         this.handleSearch();
       }
     });
+
+    // Add event listeners for quick city buttons
+    document.querySelectorAll('.city-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const cityName = e.target.getAttribute('data-city');
+        this.cityInput.value = cityName;
+        this.handleSearch();
+      });
+    });
   }
 
   async handleSearch() {

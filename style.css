@@ -58,6 +58,47 @@ body::before {
   text-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
+/* Feature Highlights */
+.feature-highlights {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.feature-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  opacity: 0.9;
+  transition: all 0.3s ease;
+  padding: 15px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.feature-item:hover {
+  opacity: 1;
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.feature-item i {
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+}
+
+.feature-item span {
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+}
+
 /* Search Container */
 .search-container {
   background: rgba(255, 255, 255, 0.95);
@@ -67,6 +108,58 @@ body::before {
   box-shadow: 0 20px 40px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.2);
   margin-bottom: 40px;
   border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* Quick Cities */
+.quick-cities {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.2);
+  margin-bottom: 40px;
+  border: 1px solid rgba(255,255,255,0.3);
+  text-align: center;
+}
+
+.quick-cities h3 {
+  color: #2d3748;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.city-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.city-btn {
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #f7fafc, #edf2f7);
+  color: #4a5568;
+  border: 2px solid #e2e8f0;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.city-btn:hover {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border-color: #667eea;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+.city-btn:active {
+  transform: translateY(0);
 }
 
 .search-box {
@@ -356,6 +449,184 @@ body::before {
   color: #718096;
   border-top: 2px solid #e2e8f7;
   padding-top: 20px;
+/* Project Info Section */
+.project-info {
+  margin-top: 50px;
+}
+
+.info-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.info-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c);
+  background-size: 300% 100%;
+  animation: gradientShift 3s ease infinite;
+}
+
+.info-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.info-header i {
+  color: #667eea;
+  font-size: 1.5rem;
+}
+
+.info-header h3 {
+  color: #1a202c;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.info-card p {
+  color: #4a5568;
+  line-height: 1.7;
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+}
+
+.tech-stack, .api-info {
+  margin-bottom: 30px;
+}
+
+.tech-stack h4, .api-info h4 {
+  color: #2d3748;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tech-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tech-badge {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.api-sources {
+  display: grid;
+  gap: 15px;
+}
+
+.api-source {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: linear-gradient(135deg, #f7fafc, #edf2f7);
+  border-radius: 12px;
+  border: 2px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.api-source:hover {
+  border-color: #667eea;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.1);
+}
+
+.api-source i {
+  color: #667eea;
+  font-size: 1.5rem;
+  width: 30px;
+  text-align: center;
+}
+
+.api-source div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.api-source strong {
+  color: #2d3748;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.api-source span {
+  color: #718096;
+  font-size: 0.9rem;
+}
+
+/* Footer */
+.footer {
+  margin-top: 60px;
+  padding: 30px 0;
+  border-top: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  color: white;
+}
+
+.footer-content p {
+  margin: 0;
+  opacity: 0.9;
+  font-size: 0.95rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-link {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.footer-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
 }
 
 .news-source {
@@ -414,6 +685,28 @@ body::before {
   .weather-card {
     padding: 30px;
   }
+
+  .feature-highlights {
+    gap: 15px;
+  }
+
+  .city-buttons {
+    gap: 8px;
+  }
+
+  .city-btn {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+
+  .info-card {
+    padding: 30px;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
 }
 
 @media (max-width: 480px) {
@@ -435,5 +728,35 @@ body::before {
 
   .weather-icon {
     font-size: 3.5rem;
+  }
+
+  .feature-highlights {
+    gap: 10px;
+  }
+
+  .feature-item {
+    padding: 10px;
+  }
+
+  .city-buttons {
+    gap: 6px;
+  }
+
+  .city-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+
+  .info-card {
+    padding: 25px;
+  }
+
+  .tech-badges {
+    gap: 6px;
+  }
+
+  .tech-badge {
+    padding: 4px 10px;
+    font-size: 0.8rem;
   }
 }

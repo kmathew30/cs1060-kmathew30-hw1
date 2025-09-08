@@ -16,6 +16,26 @@
       <header class="header">
         <h1>Weather & News Dashboard</h1>
         <p>Get instant weather updates and local news for any city</p>
+        
+        <!-- Feature highlights -->
+        <div class="feature-highlights">
+          <div class="feature-item">
+            <i class="fas fa-cloud-sun"></i>
+            <span>Real-time Weather</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-newspaper"></i>
+            <span>Latest News</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-mobile-alt"></i>
+            <span>Mobile Friendly</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-globe"></i>
+            <span>Global Coverage</span>
+          </div>
+        </div>
       </header>
 
       <main class="main">
@@ -32,6 +52,19 @@
             </button>
           </div>
           <div id="errorMessage" class="error-message hidden"></div>
+        </div>
+
+        <!-- Quick access cities -->
+        <div class="quick-cities">
+          <h3>Popular Cities</h3>
+          <div class="city-buttons">
+            <button class="city-btn" data-city="New York">New York</button>
+            <button class="city-btn" data-city="London">London</button>
+            <button class="city-btn" data-city="Tokyo">Tokyo</button>
+            <button class="city-btn" data-city="Paris">Paris</button>
+            <button class="city-btn" data-city="Sydney">Sydney</button>
+            <button class="city-btn" data-city="Dubai">Dubai</button>
+          </div>
         </div>
 
         <div id="loadingSpinner" class="loading-spinner hidden">
@@ -84,7 +117,66 @@
             </div>
           </section>
         </div>
+
+        <!-- Project info section -->
+        <div class="project-info">
+          <div class="info-card">
+            <div class="info-header">
+              <i class="fas fa-info-circle"></i>
+              <h3>About This Dashboard</h3>
+            </div>
+            <p>This modern weather and news dashboard provides real-time weather data and local news headlines for cities worldwide. Built with vanilla JavaScript and powered by OpenWeatherMap and NewsAPI.</p>
+            
+            <div class="tech-stack">
+              <h4>Technologies Used</h4>
+              <div class="tech-badges">
+                <span class="tech-badge">HTML5</span>
+                <span class="tech-badge">CSS3</span>
+                <span class="tech-badge">JavaScript</span>
+                <span class="tech-badge">Vite</span>
+                <span class="tech-badge">Font Awesome</span>
+              </div>
+            </div>
+
+            <div class="api-info">
+              <h4>Data Sources</h4>
+              <div class="api-sources">
+                <div class="api-source">
+                  <i class="fas fa-cloud"></i>
+                  <div>
+                    <strong>OpenWeatherMap</strong>
+                    <span>Weather data and forecasts</span>
+                  </div>
+                </div>
+                <div class="api-source">
+                  <i class="fas fa-newspaper"></i>
+                  <div>
+                    <strong>NewsAPI</strong>
+                    <span>Latest news headlines</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </main>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-content">
+          <p>&copy; 2025 Weather & News Dashboard. Built with ❤️ using modern web technologies.</p>
+          <div class="footer-links">
+            <a href="#" class="footer-link">
+              <i class="fab fa-github"></i>
+              View Source
+            </a>
+            <a href="#" class="footer-link">
+              <i class="fas fa-star"></i>
+              Rate Project
+            </a>
+          </div>
+        </div>
+      </footer>
     </div>
     <script type="module" src="/main.js"></script>
   </body>
