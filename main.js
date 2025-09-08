@@ -1,5 +1,5 @@
 // Weather and News Dashboard
-class WeatherNewsApp {
+class WeatherMusicApp {
   constructor() {
     this.cityInput = document.getElementById('cityInput');
     this.searchBtn = document.getElementById('searchBtn');
@@ -16,8 +16,8 @@ class WeatherNewsApp {
     this.humidity = document.getElementById('humidity');
     this.windSpeed = document.getElementById('windSpeed');
     
-    // News elements
-    this.newsContainer = document.getElementById('newsContainer');
+    // Music elements
+    this.musicContainer = document.getElementById('musicContainer');
     
     this.initEventListeners();
   }
@@ -59,14 +59,6 @@ class WeatherNewsApp {
       // Fetch weather data first (this should always work)
       const weatherData = await this.fetchWeatherData(cityName);
       this.displayWeather(weatherData);
-      
-      // Try to fetch news data, but don't fail if it doesn't work
-      try {
-        // No need to fetch external data for music recommendations
-        // Music recommendations are generated based on weather data
-      } catch (newsError) {
-        console.warn('Music recommendations failed:', newsError.message);
-      }
       
       this.showResults();
 
@@ -128,24 +120,24 @@ class WeatherNewsApp {
   }
 
   displayMusicRecommendations(weatherMain, temperature) {
-    this.newsContainer.innerHTML = '';
+    this.musicContainer.innerHTML = '';
     
     const musicData = this.getMusicForWeather(weatherMain, temperature);
     
     musicData.forEach(recommendation => {
       const musicElement = document.createElement('div');
-      musicElement.className = 'news-article';
+      musicElement.className = 'music-article';
       
       musicElement.innerHTML = `
         <h3>${recommendation.title}</h3>
         <p>${recommendation.description}</p>
-        <div class="news-meta">
-          <span class="news-source">${recommendation.genre}</span>
-          <span class="news-date">${recommendation.mood}</span>
+        <div class="music-meta">
+          <span class="music-genre">${recommendation.genre}</span>
+          <span class="music-mood">${recommendation.mood}</span>
         </div>
       `;
       
-      this.newsContainer.appendChild(musicElement);
+      this.musicContainer.appendChild(musicElement);
     });
   }
 
@@ -317,5 +309,5 @@ class WeatherNewsApp {
 
 // Initialize the app when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-  new WeatherNewsApp();
+  new WeatherMusicApp();
 });

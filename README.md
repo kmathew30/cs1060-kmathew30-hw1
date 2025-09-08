@@ -1,11 +1,11 @@
-# Weather & News Dashboard
+# Weather & Music Dashboard
 
-A modern web application that provides instant weather updates and local news headlines for any city worldwide.
+A modern web application that provides instant weather updates and personalized music recommendations for any city worldwide.
 
 ## Features
 
 - **Real-time Weather Data**: Current temperature, weather conditions, humidity, and wind speed
-- **Local News Headlines**: Top 3 news stories for the searched location
+- **Music Recommendations**: Curated music suggestions based on current weather conditions
 - **Responsive Design**: Works perfectly on desktop, tablet, and mobile devices
 - **Error Handling**: Comprehensive validation and user feedback
 - **Modern UI**: Clean, intuitive interface with smooth animations
@@ -14,38 +14,27 @@ A modern web application that provides instant weather updates and local news he
 
 1. Enter a city name in the search box
 2. Click the "Search" button or press Enter
-3. View the current weather information and local news headlines
-
-## Demo Mode
-
-The application is now configured to use real APIs but requires API keys to function.
+3. View the current weather information and personalized music recommendations
 
 ## Setting Up API Keys (Required)
 
-To use the application, you'll need API keys from both services:
+To use the application, you'll need an API key from OpenWeatherMap:
 
 ### Weather Data (OpenWeatherMap)
 1. Sign up at [OpenWeatherMap](https://openweathermap.org/api)
 2. Get your free API key
 3. In `main.js`, replace `'YOUR_OPENWEATHER_API_KEY'` with your actual API key
 
-### News Data (NewsAPI)
-1. Sign up at [NewsAPI](https://newsapi.org/)
-2. Get your free API key
-3. In `main.js`, replace `'YOUR_NEWSAPI_KEY'` with your actual API key
-
 ### Important Notes:
 - **OpenWeatherMap**: Free tier allows 1,000 calls/day
-- **NewsAPI**: Free tier allows 100 requests/day
-- Both APIs require HTTPS in production
-- Keep your API keys secure and never commit them to public repositories
+- **Music Recommendations**: Generated locally based on weather data (no additional API needed)
+- Keep your API key secure and never commit it to public repositories
 
 ### API Key Setup:
 1. Open `main.js`
 2. Find line with `const API_KEY = 'YOUR_OPENWEATHER_API_KEY';`
 3. Replace `'YOUR_OPENWEATHER_API_KEY'` with your actual OpenWeatherMap API key
-4. Find line with `const API_KEY = 'YOUR_NEWSAPI_KEY';`
-5. Replace `'YOUR_NEWSAPI_KEY'` with your actual NewsAPI key
+
 ## Technologies Used
 
 - **HTML5**: Semantic markup structure

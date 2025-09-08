@@ -374,13 +374,13 @@ body::before {
   font-size: 1.2rem;
 }
 
-/* News Section */
-.news-container {
+/* Music Section */
+.music-container {
   display: grid;
   gap: 25px;
 }
 
-.news-article {
+.music-article {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border-radius: 20px;
@@ -392,7 +392,7 @@ body::before {
   overflow: hidden;
 }
 
-.news-article::before {
+.music-article::before {
   content: '';
   position: absolute;
   top: 0;
@@ -404,16 +404,16 @@ body::before {
   transition: transform 0.3s ease;
 }
 
-.news-article:hover {
+.music-article:hover {
   transform: translateY(-5px);
   box-shadow: 0 30px 60px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.3);
 }
 
-.news-article:hover::before {
+.music-article:hover::before {
   transform: scaleX(1);
 }
 
-.news-article h3 {
+.music-article h3 {
   font-size: 1.3rem;
   font-weight: 700;
   margin-bottom: 12px;
@@ -421,27 +421,27 @@ body::before {
   line-height: 1.4;
 }
 
-.news-article h3 a {
+.music-article h3 a {
   color: inherit;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
-.news-article h3 a:hover {
+.music-article h3 a:hover {
   background: linear-gradient(135deg, #667eea, #764ba2);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.news-article p {
+.music-article p {
   color: #4a5568;
   line-height: 1.7;
   margin-bottom: 20px;
   font-size: 1rem;
 }
 
-.news-meta {
+.music-meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -629,7 +629,7 @@ body::before {
 
 }
 
-.news-source {
+.music-genre {
   font-weight: 600;
   background: linear-gradient(135deg, #667eea, #764ba2);
   -webkit-background-clip: text;
@@ -678,7 +678,7 @@ body::before {
     font-size: 4rem;
   }
 
-  .news-article {
+  .music-article {
     padding: 25px;
   }
 
