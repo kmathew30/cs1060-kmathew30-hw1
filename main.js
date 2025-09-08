@@ -95,7 +95,7 @@ class WeatherNewsApp {
 
   async fetchNewsData(cityName) {
     // Add your NewsAPI key here
-    const API_KEY = 'paste-your-newsapi-key-here';
+    const API_KEY = '56dab31f519b40cab8a52cacb0614d5c';
     const API_URL = `https://newsapi.org/v2/everything?q=${encodeURIComponent(cityName)}&sortBy=publishedAt&pageSize=3&language=en&apiKey=${API_KEY}`;
     
     try {
