@@ -66,8 +66,8 @@ class WeatherNewsApp {
   }
 
   async fetchWeatherData(cityName) {
-    // Replace 'YOUR_OPENWEATHER_API_KEY' with your actual API key
-    const API_KEY = 'YOUR_OPENWEATHER_API_KEY';
+    // Add your OpenWeatherMap API key here
+    const API_KEY = 'paste-your-openweathermap-api-key-here';
     const API_URL = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(cityName)}&appid=${API_KEY}&units=metric`;
     
     try {
@@ -94,8 +94,8 @@ class WeatherNewsApp {
   }
 
   async fetchNewsData(cityName) {
-    // Replace 'YOUR_NEWSAPI_KEY' with your actual API key
-    const API_KEY = 'YOUR_NEWSAPI_KEY';
+    // Add your NewsAPI key here
+    const API_KEY = 'paste-your-newsapi-key-here';
     const API_URL = `https://newsapi.org/v2/everything?q=${encodeURIComponent(cityName)}&sortBy=publishedAt&pageSize=3&language=en&apiKey=${API_KEY}`;
     
     try {
