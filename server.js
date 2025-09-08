@@ -1,6 +1,6 @@
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
+import express from 'express';
+import cors from 'cors';
+import path from 'path';
 
 const app = express();
 const PORT = 3001;
@@ -23,7 +23,7 @@ app.get('/api/news', async (req, res) => {
   const API_URL = `https://newsapi.org/v2/everything?q=${encodeURIComponent(q)}&sortBy=publishedAt&pageSize=3&language=en&apiKey=${NEWS_API_KEY}`;
   
   try {
-    const fetch = (await import('node-fetch')).default;
+    const { default: fetch } = await import('node-fetch');
     const response = await fetch(API_URL);
     
     if (!response.ok) {
