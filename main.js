@@ -116,8 +116,9 @@ class WeatherNewsApp {
   }
 
   async fetchNewsData(cityName) {
-    // Use local proxy server to avoid CORS issues
-    const API_URL = `http://localhost:3001/api/news?q=${encodeURIComponent(cityName)}`;
+    // Direct API call like weather API
+    const NEWS_API_KEY = '56dab31f519b40cab8a52cacb0614d5c';
+    const API_URL = `https://newsapi.org/v2/everything?q=${encodeURIComponent(cityName)}&sortBy=publishedAt&pageSize=3&language=en&apiKey=${NEWS_API_KEY}`;
     
     console.log('News API URL:', API_URL); // Debug log
     
@@ -130,11 +131,13 @@ class WeatherNewsApp {
         console.log('News API Error Response:', errorText); // Debug log
         
         if (response.status === 401) {
-          throw new Error(`Invalid NewsAPI key. Please check your API key. Response: ${errorText}`);
+          throw new Error('Invalid API key. Please check your NewsAPI key.');
         } else if (response.status === 429) {
           throw new Error('News API rate limit exceeded. Please try again later.');
+        } else if (response.status === 404) {
+          throw new Error('No news found for this location.');
         } else {
-          throw new Error(`Unable to fetch news data. Status: ${response.status}. Response: ${errorText}`);
+          throw new Error(`Unable to fetch news data. Status: ${response.status}`);
         }
       }
       
@@ -143,17 +146,9 @@ class WeatherNewsApp {
       return data;
     } catch (error) {
       console.error('News API Error:', error); // Debug log
-      
-      // Check if it's a CORS error
-      if (error.name === 'TypeError' && error.message.includes('fetch')) {
-        throw new Error('News API blocked by browser security (CORS). This is normal - news data cannot be loaded directly from browsers.');
+      if (error.message.includes('fetch')) {
+        throw new Error('Network error. Please check your internet connection.');
       }
-      
-      // Check for other network errors
-      if (error.message.includes('NetworkError') || error.message.includes('Failed to fetch')) {
-        throw new Error('Unable to connect to news service. This may be due to browser security restrictions (CORS).');
-      }
-      
       throw error;
     }
   }
