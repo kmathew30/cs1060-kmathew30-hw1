@@ -67,7 +67,7 @@ class WeatherNewsApp {
 
   async fetchWeatherData(cityName) {
     // Add your OpenWeatherMap API key here
-    const WEATHER_API_KEY = 'd424c92b6665591d149f1493bf8d4ecd';
+    const WEATHER_API_KEY = 'YOUR_OPENWEATHERMAP_API_KEY_HERE';
     const API_URL = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(cityName)}&appid=${WEATHER_API_KEY}&units=metric`;
     
     console.log('Weather API URL:', API_URL); // Debug log
