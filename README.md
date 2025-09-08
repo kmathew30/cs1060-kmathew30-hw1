@@ -9,7 +9,7 @@ A modern web application that provides instant weather updates and personalized 
 **Email:** kmathew@mba2026.hbs.edu  
 
 ## Project Links
-- **Bolt URL:** [Your current browser URL - copy from address bar]
+- **Bolt URL:** https://bolt.new/~/github-ytp4xron
 - **GitHub Repository:** https://github.com/kmathew30/cs1060-kmathew30-hw1
 - **Live Deployment:** https://stellar-sprite-3246ad.netlify.app/
 
