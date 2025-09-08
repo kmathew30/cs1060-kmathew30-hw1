@@ -62,12 +62,10 @@ class WeatherNewsApp {
       
       // Try to fetch news data, but don't fail if it doesn't work
       try {
-        const newsData = await this.fetchNewsData(cityName);
-        this.displayNews(newsData);
+        // No need to fetch external data for music recommendations
+        // Music recommendations are generated based on weather data
       } catch (newsError) {
-        console.warn('News API failed:', newsError.message);
-        // Display a friendly message in the news section
-        this.displayNewsError(newsError.message);
+        console.warn('Music recommendations failed:', newsError.message);
       }
       
       this.showResults();
@@ -114,44 +112,6 @@ class WeatherNewsApp {
       throw error;
     }
   }
-
-  async fetchNewsData(cityName) {
-    // Use local proxy server
-    const API_URL = `http://localhost:3001/api/news?city=${encodeURIComponent(cityName)}`;
-    
-    console.log('News API URL:', API_URL); // Debug log
-    
-    try {
-      const response = await fetch(API_URL);
-      console.log('News API Response Status:', response.status); // Debug log
-      
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.log('News API Error Response:', errorText); // Debug log
-        
-        if (response.status === 401) {
-          throw new Error('Invalid API key. Please check your NewsAPI key.');
-        } else if (response.status === 429) {
-          throw new Error('News API rate limit exceeded. Please try again later.');
-        } else if (response.status === 404) {
-          throw new Error('No news found for this location.');
-        } else {
-          throw new Error(`Unable to fetch news data. Status: ${response.status}`);
-        }
-      }
-      
-      const data = await response.json();
-      console.log('News API Success:', data); // Debug log
-      return data;
-    } catch (error) {
-      console.error('News API Error:', error); // Debug log
-      if (error.message.includes('fetch')) {
-        throw new Error('Network error. Please check your internet connection.');
-      }
-      throw error;
-    }
-  }
-
   displayWeather(data) {
     this.cityName.textContent = data.name;
     this.weatherDescription.textContent = data.weather[0].description;
@@ -162,52 +122,138 @@ class WeatherNewsApp {
     
     // Set weather icon based on weather condition
     this.updateWeatherIcon(data.weather[0].main, data.weather[0].icon);
+    
+    // Display music recommendations
+    this.displayMusicRecommendations(data.weather[0].main, data.main.temp);
   }
 
-  displayNews(data) {
+  displayMusicRecommendations(weatherMain, temperature) {
     this.newsContainer.innerHTML = '';
     
-    if (!data.articles || data.articles.length === 0) {
-      this.newsContainer.innerHTML = `
-        <div class="news-article">
-          <p>No news found for this location.</p>
-        </div>
-      `;
-      return;
-    }
-
-    // Display top 3 articles
-    const articles = data.articles.slice(0, 3);
+    const musicData = this.getMusicForWeather(weatherMain, temperature);
     
-    articles.forEach(article => {
-      const articleElement = document.createElement('div');
-      articleElement.className = 'news-article';
+    musicData.forEach(recommendation => {
+      const musicElement = document.createElement('div');
+      musicElement.className = 'news-article';
       
-      const publishedDate = new Date(article.publishedAt).toLocaleDateString();
-      
-      articleElement.innerHTML = `
-        <h3><a href="${article.url}" target="_blank" rel="noopener noreferrer">${article.title}</a></h3>
-        <p>${article.description || 'No description available.'}</p>
+      musicElement.innerHTML = `
+        <h3>${recommendation.title}</h3>
+        <p>${recommendation.description}</p>
         <div class="news-meta">
-          <span class="news-source">${article.source.name}</span>
-          <span class="news-date">${publishedDate}</span>
+          <span class="news-source">${recommendation.genre}</span>
+          <span class="news-date">${recommendation.mood}</span>
         </div>
       `;
       
-      this.newsContainer.appendChild(articleElement);
+      this.newsContainer.appendChild(musicElement);
     });
   }
 
-  displayNewsError(errorMessage) {
-    this.newsContainer.innerHTML = `
-      <div class="news-article">
-        <h3>News Currently Unavailable</h3>
-        <p>Unable to load news headlines due to browser security restrictions. News APIs typically require server-side implementation to work properly.</p>
-        <div class="news-meta">
-          <span class="news-source">Technical Info: ${errorMessage}</span>
-        </div>
-      </div>
-    `;
+  getMusicForWeather(weatherMain, temperature) {
+    const recommendations = [];
+    
+    // Weather-based recommendations
+    switch (weatherMain) {
+      case 'Clear':
+        if (temperature > 25) {
+          recommendations.push({
+            title: "Summer Vibes Playlist",
+            description: "Perfect sunny day calls for upbeat tracks! Try some reggae, pop, or tropical house to match the bright weather.",
+            genre: "Pop/Reggae",
+            mood: "Energetic & Happy"
+          });
+        } else {
+          recommendations.push({
+            title: "Clear Skies Acoustic",
+            description: "Beautiful clear weather with a gentle breeze. Acoustic folk and indie tracks would complement this peaceful atmosphere.",
+            genre: "Folk/Indie",
+            mood: "Peaceful & Uplifting"
+          });
+        }
+        break;
+        
+      case 'Rain':
+      case 'Drizzle':
+        recommendations.push({
+          title: "Rainy Day Jazz",
+          description: "Nothing beats smooth jazz or lo-fi hip hop when it's raining. Perfect for a cozy indoor vibe.",
+          genre: "Jazz/Lo-fi",
+          mood: "Cozy & Contemplative"
+        });
+        break;
+        
+      case 'Thunderstorm':
+        recommendations.push({
+          title: "Storm Energy",
+          description: "Dramatic weather calls for dramatic music! Try some epic orchestral pieces or powerful rock anthems.",
+          genre: "Rock/Orchestral",
+          mood: "Intense & Dramatic"
+        });
+        break;
+        
+      case 'Snow':
+        recommendations.push({
+          title: "Winter Wonderland",
+          description: "Snowy weather pairs beautifully with classical music, ambient soundscapes, or cozy indie folk.",
+          genre: "Classical/Ambient",
+          mood: "Serene & Magical"
+        });
+        break;
+        
+      case 'Clouds':
+        recommendations.push({
+          title: "Cloudy Day Chill",
+          description: "Overcast skies are perfect for mellow indie rock, alternative, or downtempo electronic music.",
+          genre: "Indie/Alternative",
+          mood: "Mellow & Reflective"
+        });
+        break;
+        
+      default:
+        recommendations.push({
+          title: "Weather Mood Mix",
+          description: "A versatile playlist that works for any weather - featuring a mix of genres to suit your current atmosphere.",
+          genre: "Mixed",
+          mood: "Versatile"
+        });
+    }
+    
+    // Temperature-based additional recommendations
+    if (temperature > 30) {
+      recommendations.push({
+        title: "Hot Summer Beats",
+        description: "It's getting hot! Cool down with some chill electronic, bossa nova, or smooth R&B tracks.",
+        genre: "Electronic/R&B",
+        mood: "Cool & Smooth"
+      });
+    } else if (temperature < 0) {
+      recommendations.push({
+        title: "Warm Winter Sounds",
+        description: "Bundle up with some warm, comforting music. Think cozy coffee shop vibes or heartwarming ballads.",
+        genre: "Acoustic/Ballads",
+        mood: "Warm & Comforting"
+      });
+    }
+    
+    // Add a general mood recommendation
+    const timeOfDay = new Date().getHours();
+    if (timeOfDay < 12) {
+      recommendations.push({
+        title: "Morning Energy Boost",
+        description: "Start your day right with some uplifting morning tunes that match today's weather vibe!",
+        genre: "Upbeat/Motivational",
+        mood: "Energizing"
+      });
+    } else if (timeOfDay > 18) {
+      recommendations.push({
+        title: "Evening Wind Down",
+        description: "As the day winds down, let the weather inspire your evening soundtrack with these relaxing suggestions.",
+        genre: "Chill/Relaxing",
+        mood: "Calming"
+      });
+    }
+    
+    return recommendations.slice(0, 3); // Return top 3 recommendations
   }
   updateWeatherIcon(weatherMain, iconCode) {
     const iconMap = {
