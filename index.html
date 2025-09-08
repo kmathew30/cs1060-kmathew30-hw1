@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather & News Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="app">
+      <header class="header">
+        <h1><i class="fas fa-cloud-sun"></i> Weather & News Dashboard</h1>
+        <p>Get instant weather updates and local news for any city</p>
+      </header>
+
+      <main class="main">
+        <div class="search-container">
+          <div class="search-box">
+            <input 
+              type="text" 
+              id="cityInput" 
+              placeholder="Enter city name..." 
+              class="city-input"
+            >
+            <button id="searchBtn" class="search-btn">
+              <i class="fas fa-search"></i>
+              Search
+            </button>
+          </div>
+          <div id="errorMessage" class="error-message hidden"></div>
+        </div>
+
+        <div id="loadingSpinner" class="loading-spinner hidden">
+          <i class="fas fa-spinner fa-spin"></i>
+          <p>Fetching data...</p>
+        </div>
+
+        <div id="resultsContainer" class="results-container hidden">
+          <!-- Weather Section -->
+          <section class="weather-section">
+            <h2><i class="fas fa-thermometer-half"></i> Current Weather</h2>
+            <div class="weather-card">
+              <div class="weather-main">
+                <div class="weather-icon">
+                  <i id="weatherIcon" class="fas fa-sun"></i>
+                </div>
+                <div class="weather-info">
+                  <h3 id="cityName">City Name</h3>
+                  <p id="weatherDescription">Weather Description</p>
+                  <div class="temperature">
+                    <span id="temperature">--°</span>
+                  </div>
+                </div>
+              </div>
+              <div class="weather-details">
+                <div class="detail-item">
+                  <i class="fas fa-eye"></i>
+                  <span>Feels like</span>
+                  <span id="feelsLike">--°</span>
+                </div>
+                <div class="detail-item">
+                  <i class="fas fa-tint"></i>
+                  <span>Humidity</span>
+                  <span id="humidity">--%</span>
+                </div>
+                <div class="detail-item">
+                  <i class="fas fa-wind"></i>
+                  <span>Wind</span>
+                  <span id="windSpeed">-- km/h</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- News Section -->
+          <section class="news-section">
+            <h2><i class="fas fa-newspaper"></i> Local News Headlines</h2>
+            <div id="newsContainer" class="news-container">
+              <!-- News articles will be inserted here -->
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
