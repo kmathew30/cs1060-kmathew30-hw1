@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather & Music Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script type="module" crossorigin src="/assets/index-C0knd8hF.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DFR19h3X.css">
+  </head>
+  <body>
+    <div id="app">
+      <header class="header">
+        <h1>Weather & Music Dashboard</h1>
+        <p>Get instant weather updates and music recommendations for any city</p>
+        
+        <!-- Feature highlights -->
+        <div class="feature-highlights">
+          <div class="feature-item">
+            <i class="fas fa-cloud-sun"></i>
+            <span>Real-time Weather</span>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-music"></i>
+            <span>Music Suggestions</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="main">
+        <div class="search-container">
+          <div class="search-box">
+            <input 
+              type="text" 
+              id="cityInput" 
+              placeholder="Enter city name..." 
+              class="city-input"
+            >
+            <button id="searchBtn" class="search-btn">
+              Search
+            </button>
+          </div>
+          <div id="errorMessage" class="error-message hidden"></div>
+        </div>
+
+        <!-- Quick access cities -->
+        <div class="quick-cities">
+          <h3>Popular Cities</h3>
+          <div class="city-buttons">
+            <button class="city-btn" data-city="New York">New York</button>
+            <button class="city-btn" data-city="London">London</button>
+            <button class="city-btn" data-city="Paris">Paris</button>
+            <button class="city-btn" data-city="Sydney">Sydney</button>
+            <button class="city-btn" data-city="Dubai">Dubai</button>
+            <button class="city-btn" data-city="Tokyo">Tokyo</button>
+          </div>
+        </div>
+
+        <div id="loadingSpinner" class="loading-spinner hidden">
+          <i class="fas fa-spinner"></i>
+          <p>Fetching data...</p>
+        </div>
+
+        <div id="resultsContainer" class="results-container hidden">
+          <!-- Weather Section -->
+          <section class="weather-section">
+            <h2>Current Weather</h2>
+            <div class="weather-card">
+              <div class="weather-main">
+                <div class="weather-icon">
+                  <i id="weatherIcon" class="fas fa-sun"></i>
+                </div>
+                <div class="weather-info">
+                  <h3 id="cityName">City Name</h3>
+                  <p id="weatherDescription">Weather Description</p>
+                  <div class="temperature">
+                    <span id="temperature">--°</span>
+                  </div>
+                </div>
+              </div>
+              <div class="weather-details">
+                <div class="detail-item">
+                  <i class="fas fa-eye"></i>
+                  <span>Feels like</span>
+                  <span id="feelsLike">--°</span>
+                </div>
+                <div class="detail-item">
+                  <i class="fas fa-tint"></i>
+                  <span>Humidity</span>
+                  <span id="humidity">--%</span>
+                </div>
+                <div class="detail-item">
+                  <i class="fas fa-wind"></i>
+                  <span>Wind</span>
+                  <span id="windSpeed">-- km/h</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Music Section -->
+          <section class="music-section">
+            <h2><i class="fas fa-music"></i>Music for This Weather</h2>
+            <div id="musicContainer" class="music-container">
+              <!-- Music recommendations will be inserted here -->
+            </div>
+          </section>
+        </div>
+
+        <!-- Project info section -->
+        <div class="project-info">
+          <div class="info-card">
+            <div class="info-header">
+              <i class="fas fa-info-circle"></i>
+              <h3>About This Dashboard</h3>
+            </div>
+            <p>This modern weather and music dashboard provides real-time weather data and personalized music recommendations for cities worldwide. Built with vanilla JavaScript and powered by OpenWeatherMap.</p>
+            <p>A sleek weather and music dashboard delivering real-time data and curated music suggestions for any city. Created by <strong>Kevin Mathew</strong>, MS/MBA student.</p>
+            
+            <div class="api-info">
+              <h4>Data Source:</h4>
+              <div class="api-sources">
+                <div class="api-source">
+                  <div>
+                    <strong>OpenWeatherMap</strong>
+                    <span>Weather data and forecasts</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer class="footer">
+      </footer>
+    </div>
+  </body>
+</html>
